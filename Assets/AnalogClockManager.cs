@@ -11,9 +11,9 @@ public class AnalogClockManager : MonoBehaviour
     private float elapsedTime = 0f;
     private float refreshRate = 1f;
 
-    const int HOURS_ON_CLOCK = 12;
-    const int MINUTES_ON_CLOCK = 60;
-    const int SECONDS_ON_CLOCK = 60;
+    const float HOURS_ON_CLOCK = 12f;
+    const float MINUTES_ON_CLOCK = 60f;
+    const float SECONDS_ON_CLOCK = 60f;
     const float HOUR_DEGREES = 360f / HOURS_ON_CLOCK;
     const float MINUTE_DEGREES = 360f / MINUTES_ON_CLOCK;
 
@@ -55,6 +55,7 @@ public class AnalogClockManager : MonoBehaviour
     private float GetMinuteInDegrees(int minute, int seconds)
     {
         float fMinute = minute + (seconds / SECONDS_ON_CLOCK);
+        Debug.Log(fMinute);
         return fMinute * MINUTE_DEGREES;
     }
 }
