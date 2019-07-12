@@ -11,6 +11,11 @@ public class AnalogClockManager : MonoBehaviour
     private float elapsedTime = 0f;
     private float refreshRate = 1f;
 
+    const int HOURS_ON_CLOCK = 12;
+    const int MINUTES_ON_CLOCK = 60;
+    const float HOUR_DEGREES = 360f / HOURS_ON_CLOCK;
+    const float MINUTE_DEGREES = 360f / MINUTES_ON_CLOCK;
+
     private void Update()
     {
         elapsedTime += Time.deltaTime;
@@ -41,14 +46,14 @@ public class AnalogClockManager : MonoBehaviour
         hand.localEulerAngles = new Vector3(hand.localEulerAngles.x, hand.localEulerAngles.y, degrees);
     }
 
-    private float GetMinuteInDegrees(int minute, int seconds)
-    {
-        float fMinute = minute + (seconds / 60f);
-        return Mathf.Lerp(0f, 360f, fMinute / 60f);
-    }
-
     private float GetHourInDegrees(int hour, int minute)
     {
-        return (hour * 30f) + minute * .5f;
+        return ((hour * HOUR_DEGREES) + minute * HOUR_DEGREES / MINUTES_ON_CLOCK);
+    }
+
+    private float GetMinuteInDegrees(int minute, int seconds)
+    {
+        float fMinute = minute + (seconds / MINUTES_ON_CLOCK);
+        return fMinute * MINUTE_DEGREES;
     }
 }
