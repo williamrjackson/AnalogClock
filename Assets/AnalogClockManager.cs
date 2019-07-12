@@ -26,12 +26,17 @@ public class AnalogClockManager : MonoBehaviour
     {
         DateTime dt = DateTime.Now;
 
-        int nHour = int.Parse(dt.ToString("hh"));
-        int nMin = int.Parse(dt.ToString("mm"));
-        int nSec = int.Parse(dt.ToString("ss"));
+        int nHour = dt.Hour;
+        int nMin = dt.Minute;
+        int nSec = dt.Second;
 
-        hourHand.localEulerAngles = new Vector3(hourHand.localEulerAngles.x, hourHand.localEulerAngles.y, GetHourInDegrees(nHour, nMin));
-        minuteHand.localEulerAngles = new Vector3(minuteHand.localEulerAngles.x, minuteHand.localEulerAngles.y, GetMinuteInDegrees(nMin, nSec));
+        SetHandRotation(hourHand, GetHourInDegrees(nHour, nMin));
+        SetHandRotation(minuteHand, GetMinuteInDegrees(nMin, nSec));
+    }
+
+    private void SetHandRotation(Transform hand, float degrees)
+    {
+        hand.localEulerAngles = new Vector3(hand.localEulerAngles.x, hand.localEulerAngles.y, degrees);
     }
 
     private float GetMinuteInDegrees(int minute, int seconds)
