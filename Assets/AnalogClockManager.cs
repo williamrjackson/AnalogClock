@@ -55,7 +55,6 @@ public class AnalogClockManager : MonoBehaviour
     private float GetMinuteInDegrees(int minute, int seconds)
     {
         float fMinute = minute + (seconds / SECONDS_ON_CLOCK);
-        Debug.Log(fMinute);
         return fMinute * MINUTE_DEGREES;
     }
 }
