@@ -41,12 +41,12 @@ public class AnalogClockManager : MonoBehaviour
 
     private float GetMinuteInDegrees(int minute, int seconds)
     {
-        float fMinute = minute + Mathf.InverseLerp(0, 60, seconds);
-        return Mathf.Lerp(0, 360, Mathf.InverseLerp(0, 60, fMinute));
+        float fMinute = minute + seconds / 60f;
+        return Mathf.Lerp(0f, 360f, fMinute / 60f);
     }
 
     private float GetHourInDegrees(int hour, int minute)
     {
-        return (hour * 30) + minute * .5f;
+        return (hour * 30f) + minute * .5f;
     }
 }
