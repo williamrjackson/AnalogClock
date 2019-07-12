@@ -15,6 +15,7 @@ public class AnalogClockManager : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
+        // Refresh once every second
         if (elapsedTime > refreshRate)
         {
             elapsedTime = 0f;
@@ -36,12 +37,13 @@ public class AnalogClockManager : MonoBehaviour
 
     private void SetHandRotation(Transform hand, float degrees)
     {
+        // Update Z axis, retain others.
         hand.localEulerAngles = new Vector3(hand.localEulerAngles.x, hand.localEulerAngles.y, degrees);
     }
 
     private float GetMinuteInDegrees(int minute, int seconds)
     {
-        float fMinute = minute + seconds / 60f;
+        float fMinute = minute + (seconds / 60f);
         return Mathf.Lerp(0f, 360f, fMinute / 60f);
     }
 
