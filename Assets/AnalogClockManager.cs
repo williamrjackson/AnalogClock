@@ -17,12 +17,12 @@ public class AnalogClockManager : MonoBehaviour
     private float elapsedTime = 0f;
 
     const float HOURS_ON_CLOCK = 12f;
-    const float MINUTES_ON_CLOCK = 60f;
-    const float SECONDS_ON_CLOCK = 60f;
-    const float MILLISECONDS_ON_CLOCK = 1000f;
+    const float MINUTES_PER_HOUR = 60f;
+    const float SECONDS_PER_MINUTE = 60f;
+    const float MILLISECONDS_PER_MINUTE = 1000f;
     const float HOUR_DEGREES = 360f / HOURS_ON_CLOCK;
-    const float MINUTE_DEGREES = 360f / MINUTES_ON_CLOCK;
-    const float SECOND_DEGREES = 360f / SECONDS_ON_CLOCK;
+    const float MINUTE_DEGREES = 360f / MINUTES_PER_HOUR;
+    const float SECOND_DEGREES = 360f / SECONDS_PER_MINUTE;
 
     private void Update()
     {
@@ -61,17 +61,22 @@ public class AnalogClockManager : MonoBehaviour
 
     private float GetHourInDegrees(int hour, int minute)
     {
-        return ((hour * HOUR_DEGREES) + minute * HOUR_DEGREES / MINUTES_ON_CLOCK);
+        return ((hour * HOUR_DEGREES) + minute * HOUR_DEGREES / MINUTES_PER_HOUR);
     }
 
     private float GetMinuteInDegrees(int minute, int seconds)
     {
-        float fMinute = minute + (seconds / SECONDS_ON_CLOCK);
+        float fMinute = minute + (seconds / SECONDS_PER_MINUTE);
         return fMinute * MINUTE_DEGREES;
     }
     private float GetSecondInDegrees(int second, int milliseconds)
     {
-        float fSecond = second + (milliseconds / MILLISECONDS_ON_CLOCK);
-        return fSecond * MINUTE_DEGREES;
+        float fSecond = second + (milliseconds / MILLISECONDS_PER_MINUTE);
+        return (refreshRate > .5f) ? RoundToNearestMultiple(fSecond * MINUTE_DEGREES, MINUTE_DEGREES * .5f) : fSecond * MINUTE_DEGREES;
+    }
+     private float RoundToNearestMultiple(float numberToRound, float multipleOf)
+     {
+        int multiple =  Mathf.RoundToInt(numberToRound/multipleOf);
+        return multiple*multipleOf;
     }
 }
